@@ -38,52 +38,7 @@ form div option:hover {
   align-items: center;
 }
 
-.today-input {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  height: 2rem;
-  align-items: center;
-}
-.today-text {
-  color: rgb(114, 114, 114);
-  font-size: 2rem;
-  margin-right: 1rem;
-}
-.center {
-  position: relative;
-  top: 0.2rem;
-  //left: 54%;
-  //transform: translate(-50%, -50%);
-}
-input[type="checkbox"] {
-  //position: relative;
-  width: 4rem;
-  height: 2rem;
-  -webkit-appearance: none;
-  background-color: rgb(43, 43, 43);
-  outline: none;
-  border-radius: 1rem;
-  border: 0.1rem solid rgb(83, 83, 83);
-}
-input:checked[type="checkbox"] {
-  background-color: rgb(101, 126, 108);
-}
-input[type="checkbox"]::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  //top: 0;
-  width: 1.8rem;
-  height: 1.8rem;
-  border-radius: 1rem;
-  background-color: rgb(83, 83, 83);
-}
-input:checked[type="checkbox"]:before {
-  left: 2.1rem;
-}
-
-button {
+form div button {
   background-color: rgb(43, 43, 43);
   border: 0.1rem solid rgb(83, 83, 83);
   width: 7rem;

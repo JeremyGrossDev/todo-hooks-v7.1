@@ -1,0 +1,25 @@
+.task-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+}
+.task-info-bar {
+  display: flex;
+  font-size: 2rem;
+  color: rgb(153, 153, 153);
+  letter-spacing: 0.1rem;
+}
+.task-info-bar div {
+  margin-right: 1rem;
+}
+.task-btn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.task-btn i {
+  font-size: 1.6rem;
+  color: rgb(153, 153, 153);
+  margin-left: 2rem;
+}

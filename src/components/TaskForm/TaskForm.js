@@ -1,4 +1,5 @@
 import React from "react";
+import CheckBox from "../CheckBox/CheckBox";
 import "./TaskForm.scss";
 
 const TaskForm = () => {
@@ -19,12 +20,7 @@ const TaskForm = () => {
             <option value="3">3</option>
           </select>
         </div>
-        <div className="today-input">
-          <div className="today-text">Today</div>
-          <div className="center">
-            <input type="checkbox" />
-          </div>
-        </div>
+        <CheckBox title="Today" />
         <button>Add</button>
       </div>
     </form>
