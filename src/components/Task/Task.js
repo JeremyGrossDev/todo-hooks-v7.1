@@ -6,11 +6,11 @@ const Task = ({ task }) => {
   return (
     <li className="task-container">
       <div className="task-info-bar">
-        <div>{task.priority}</div>
-        <div>
-          <CheckBox />
-        </div>
         <div>{task.title}</div>
+        <div className="task-info-bar-second-row">
+          <div>Priority: {task.priority}</div>
+          <div>Today: {task.today === true ? "Yes" : "No"}</div>
+        </div>
       </div>
       <div>
         <button className="task-btn ">

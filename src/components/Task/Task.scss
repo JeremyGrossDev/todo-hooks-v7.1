@@ -2,15 +2,23 @@
   display: flex;
   justify-content: space-between;
   margin: 1rem;
+  /* background-color: bisque; */
 }
 .task-info-bar {
   display: flex;
-  font-size: 2rem;
-  color: rgb(153, 153, 153);
+  font-size: 2.1rem;
+  color: rgb(177, 177, 177);
   letter-spacing: 0.1rem;
+
+  flex-direction: column;
 }
-.task-info-bar div {
+.task-info-bar-second-row {
+  display: flex;
+}
+.task-info-bar-second-row div {
   margin-right: 1rem;
+  font-size: 1.15rem;
+  opacity: 0.5;
 }
 .task-btn {
   background-color: transparent;
@@ -19,7 +27,8 @@
   cursor: pointer;
 }
 .task-btn i {
-  font-size: 1.6rem;
-  color: rgb(153, 153, 153);
-  margin-left: 2rem;
+  font-size: 1.7rem;
+  color: rgb(177, 177, 177);
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
