@@ -10,8 +10,8 @@ const TaskList = () => {
   return (
     <div className="task-list-container">
       <div className="task-list-header">
-        <div>{<CheckBox title="Show task info" />}</div>
-        <div>{<CheckBox title="Show Only Today's" />}</div>
+        <div>{<CheckBox title="Task info" />}</div>
+        <div>{<CheckBox title="Show Today's" />}</div>
       </div>
       <ul className="task-list-ul">
         {tasks.map((task) => {

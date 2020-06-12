@@ -38,9 +38,15 @@
 }
 
 @media (max-width: 700px) {
+  .task-list-header {
+    font-size: 2rem;
+    //padding-top: 1rem;
+
+    margin: 0 2.5rem 1rem 1rem;
+  }
   .task-list-ul {
-    height: 29rem;
-    overflow: visible;
-    overflow-y: visible;
+    height: 38rem;
+    overflow: hidden;
+    overflow-y: auto;
   }
 }

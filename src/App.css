@@ -7,6 +7,7 @@ html,
 body {
   font-size: 62.5%;
   height: 100vh;
+  /* background-color: #262c35; */
 }
 
 .container {
@@ -53,6 +54,6 @@ body {
   }
   .app-wrapper {
     width: 100vw;
-    min-height: 100vh;
+    height: 100vh;
   }
 }
