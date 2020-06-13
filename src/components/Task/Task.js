@@ -1,5 +1,4 @@
 import React from "react";
-import CheckBox from "../CheckBox/CheckBox";
 import "./Task.scss";
 
 const Task = ({ task }) => {

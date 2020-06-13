@@ -6,7 +6,7 @@ import "./TaskList.scss";
 
 const TaskList = () => {
   const { tasks } = useContext(GlobalContext);
-  console.log(tasks);
+  //console.log(tasks);
   return (
     <div className="task-list-container">
       <div className="task-list-header">
