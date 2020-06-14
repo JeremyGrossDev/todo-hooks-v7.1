@@ -33,10 +33,26 @@ export const GlobalContext = createContext(initialState);
 export const GlobalContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
+  const addTask = (tasks) => {
+    dispatch({
+      type: "ADD_TASK",
+      payload: tasks,
+    });
+  };
+
+  const deleteTask = (tasks) => {
+    dispatch({
+      type: "DELETE_TASK",
+      payload: tasks,
+    });
+  };
+
   return (
     <GlobalContext.Provider
       value={{
         tasks: state.tasks,
+        addTask,
+        deleteTask,
       }}
     >
       {children}
