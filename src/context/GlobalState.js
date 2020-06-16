@@ -25,7 +25,13 @@ const initialState = {
       isComplete: true,
     },
   ],
-  configs: [{ showTaskInfo: false, showTodays: false }],
+  configs: [
+    {
+      showTaskInfo: false,
+      showTodays: false,
+      editTaskInfo: null,
+    },
+  ],
 };
 
 export const GlobalContext = createContext(initialState);
@@ -33,17 +39,31 @@ export const GlobalContext = createContext(initialState);
 export const GlobalContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
-  const addTask = (tasks) => {
+  const addTask = (task) => {
     dispatch({
       type: "ADD_TASK",
-      payload: tasks,
+      payload: task,
     });
   };
 
-  const deleteTask = (tasks) => {
+  const deleteTask = (id) => {
     dispatch({
       type: "DELETE_TASK",
-      payload: tasks,
+      payload: id,
+    });
+  };
+
+  const findTask = (id) => {
+    dispatch({
+      type: "FIND_TASK",
+      payload: id,
+    });
+  };
+
+  const editTask = (task) => {
+    dispatch({
+      type: "EDIT_TASK",
+      payload: task,
     });
   };
 
@@ -51,8 +71,11 @@ export const GlobalContextProvider = ({ children }) => {
     <GlobalContext.Provider
       value={{
         tasks: state.tasks,
+        configs: state.configs,
         addTask,
         deleteTask,
+        findTask,
+        editTask,
       }}
     >
       {children}

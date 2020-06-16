@@ -4,7 +4,7 @@ import { GlobalContext } from "../../context/GlobalState";
 import "./Task.scss";
 
 const Task = ({ task }) => {
-  const { deleteTask } = useContext(GlobalContext);
+  const { deleteTask, findTask } = useContext(GlobalContext);
   return (
     <li className="task-container">
       <div className="task-info-bar">
@@ -15,7 +15,7 @@ const Task = ({ task }) => {
         </div>
       </div>
       <div>
-        <button className="task-btn ">
+        <button className="task-btn" onClick={() => findTask(task.id)}>
           <i className="fas fa-pen"></i>
         </button>
         <button className="task-btn" onClick={() => deleteTask(task.id)}>
