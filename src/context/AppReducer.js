@@ -28,13 +28,33 @@ export default (state, action) => {
       };
 
     case "EDIT_TASK":
+      const { tasks } = state;
+      const tid = action.payload.id;
+      const newTasks = tasks.map((task) => {
+        return task.id === tid ? action.payload : task;
+      });
+
       return {
         ...state,
-        tasks: [action.payload, ...state.tasks],
+        tasks: newTasks,
         configs: {
-          showTaskInfo: showTaskInfo,
-          showTodays: showTodays,
-          editTask: state.tasks.find((task) => task.id === action.payload),
+          0: {
+            showTaskInfo: state.configs[0].showTaskInfo,
+            showTodays: state.configs[0].showTodays,
+            editTaskInfo: null,
+          },
+        },
+      };
+
+    case "TOGGLE_TODAY":
+      return {
+        ...state,
+        configs: {
+          0: {
+            showTaskInfo: state.configs[0].showTaskInfo,
+            showTodays: action.payload,
+            editTaskInfo: state.configs[0].editTaskInfo,
+          },
         },
       };
 

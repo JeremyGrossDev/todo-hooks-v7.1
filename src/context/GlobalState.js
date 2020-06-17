@@ -1,7 +1,11 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useEffect } from "react";
 import AppReducer from "./AppReducer";
 
 const initialState = {
+  tasks: JSON.parse(localStorage.getItem("tasks")) || [],
+  configs: JSON.parse(localStorage.getItem("configs")) || [],
+};
+/* const initialState = {
   tasks: [
     {
       id: 1,
@@ -32,12 +36,17 @@ const initialState = {
       editTaskInfo: null,
     },
   ],
-};
+}; */
 
 export const GlobalContext = createContext(initialState);
 
 export const GlobalContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(state.tasks));
+    localStorage.setItem("configs", JSON.stringify(state.configs));
+  });
 
   const addTask = (task) => {
     dispatch({
@@ -67,6 +76,13 @@ export const GlobalContextProvider = ({ children }) => {
     });
   };
 
+  const toggleToday = (value) => {
+    dispatch({
+      type: "TOGGLE_TODAY",
+      payload: value,
+    });
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -76,6 +92,7 @@ export const GlobalContextProvider = ({ children }) => {
         deleteTask,
         findTask,
         editTask,
+        toggleToday,
       }}
     >
       {children}

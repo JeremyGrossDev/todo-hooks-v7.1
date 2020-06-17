@@ -6,7 +6,7 @@ import "./TaskForm.scss";
 //import TaskList from "../TaskList/TaskList";
 
 const TaskForm = () => {
-  const { addTask, configs } = useContext(GlobalContext);
+  const { addTask, configs, editTask } = useContext(GlobalContext);
 
   const [task, setTask] = useState({
     id: uuidv4(),
@@ -33,7 +33,8 @@ const TaskForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addTask(task);
+
+    editInfo === null ? addTask(task) : editTask(task);
 
     setTask({
       id: uuidv4(),
@@ -90,7 +91,7 @@ const TaskForm = () => {
           </select>
         </div>
         <CheckBox title="Today" change={handleCheckBoxChange} checked={today} />
-        <button>Add</button>
+        <button>{editInfo === null ? "Add" : "Edit"}</button>
       </div>
     </form>
   );
