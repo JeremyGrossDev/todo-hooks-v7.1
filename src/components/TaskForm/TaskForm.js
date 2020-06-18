@@ -18,7 +18,7 @@ const TaskForm = () => {
 
   const { title, priority, today } = task;
   const editInfo = configs[0].editTaskInfo;
-  console.log(editInfo);
+  //console.log(editInfo);
 
   const handleChange = (e) => {
     setTask({ ...task, [e.target.name]: e.target.value });

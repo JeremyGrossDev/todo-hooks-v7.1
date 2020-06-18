@@ -83,6 +83,13 @@ export const GlobalContextProvider = ({ children }) => {
     });
   };
 
+  const toggleTask = (value) => {
+    dispatch({
+      type: "TOGGLE_TASK",
+      payload: value,
+    });
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -93,6 +100,7 @@ export const GlobalContextProvider = ({ children }) => {
         findTask,
         editTask,
         toggleToday,
+        toggleTask,
       }}
     >
       {children}

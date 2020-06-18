@@ -58,6 +58,18 @@ export default (state, action) => {
         },
       };
 
+    case "TOGGLE_TASK":
+      return {
+        ...state,
+        configs: {
+          0: {
+            showTaskInfo: action.payload,
+            showTodays: state.configs[0].showTodays,
+            editTaskInfo: state.configs[0].editTaskInfo,
+          },
+        },
+      };
+
     default:
       return state;
   }
