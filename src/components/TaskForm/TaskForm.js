@@ -91,7 +91,7 @@ const TaskForm = () => {
           </select>
         </div>
         <CheckBox title="Today" change={handleCheckBoxChange} checked={today} />
-        <button>{editInfo === null ? "Add" : "Edit"}</button>
+        <button>{editInfo === null ? "Add" : "Save"}</button>
       </div>
     </form>
   );

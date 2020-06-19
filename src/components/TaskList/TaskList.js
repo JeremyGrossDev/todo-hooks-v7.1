@@ -8,7 +8,13 @@ const TaskList = () => {
   const { tasks, configs, toggleToday, toggleTask } = useContext(GlobalContext);
   //console.log(configs[0].showTaskInfo);
 
-  const todayTasks = tasks.filter((task) => {
+  const sortedTasks = tasks.sort(
+    (a, b) => a.priority - b.priority || a.title.localeCompare(b.title)
+  );
+
+  console.log(sortedTasks);
+
+  const todayTasks = sortedTasks.filter((task) => {
     return task.today;
   });
 
@@ -36,15 +42,15 @@ const TaskList = () => {
       return comparison;
     }
 
-    const sortedData = tasks.sort(compare);
+    /* const sortedData = tasks.sort(compare);
 
-    const rats = tasks.sort(
+    const sortedTasks = tasks.sort(
       (a, b) =>
         b.priority.localeCompare - a.priority.localeCompare ||
         a.title.localeCompare(b.title)
     );
 
-    console.log(rats);
+    //console.log(rats); */
   };
 
   return (
@@ -78,7 +84,7 @@ const TaskList = () => {
           </ul>
         ) : (
           <ul className="task-list-ul">
-            {tasks.map((task) => {
+            {sortedTasks.map((task) => {
               return <Task key={task.id} task={task} />;
             })}
           </ul>

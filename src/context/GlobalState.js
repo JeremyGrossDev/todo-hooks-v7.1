@@ -48,7 +48,7 @@ export const GlobalContext = createContext(initialState);
 
 export const GlobalContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
-  console.log(state);
+  //console.log(state);
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(state.tasks));
