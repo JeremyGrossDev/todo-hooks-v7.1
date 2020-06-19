@@ -3,7 +3,13 @@ import AppReducer from "./AppReducer";
 
 const initialState = {
   tasks: JSON.parse(localStorage.getItem("tasks")) || [],
-  configs: JSON.parse(localStorage.getItem("configs")) || [],
+  configs: JSON.parse(localStorage.getItem("configs")) || [
+    {
+      showTaskInfo: false,
+      showTodays: false,
+      editTaskInfo: null,
+    },
+  ],
 };
 /* const initialState = {
   tasks: [
@@ -42,6 +48,7 @@ export const GlobalContext = createContext(initialState);
 
 export const GlobalContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
+  console.log(state);
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(state.tasks));
