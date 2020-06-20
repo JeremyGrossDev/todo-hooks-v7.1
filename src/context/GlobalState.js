@@ -1,8 +1,26 @@
 import React, { createContext, useReducer, useEffect } from "react";
 import AppReducer from "./AppReducer";
 
+const tasksForState = JSON.parse(localStorage.getItem("tasks")) || [];
+
+//console.log(tasksForState);
+const sortedTasks = tasksForState.sort(
+  (a, b) => a.priority - b.priority || a.title.localeCompare(b.title)
+);
+
+const orderdTasks = sortedTasks.map((task, i) => {
+  return {
+    order: i,
+    id: task.id,
+    title: task.title,
+    priority: task.priority,
+    today: task.today,
+    isComplete: task.isComplete,
+  };
+});
+
 const initialState = {
-  tasks: JSON.parse(localStorage.getItem("tasks")) || [],
+  tasks: orderdTasks,
   configs: JSON.parse(localStorage.getItem("configs")) || [
     {
       showTaskInfo: false,
@@ -55,7 +73,7 @@ export const GlobalContextProvider = ({ children }) => {
     localStorage.setItem("configs", JSON.stringify(state.configs));
   });
 
-  console.log(state.tasks);
+  /* console.log(state.tasks);
   const sortedTasks = state.tasks.sort(
     (a, b) => a.priority - b.priority || a.title.localeCompare(b.title)
   );
@@ -69,7 +87,7 @@ export const GlobalContextProvider = ({ children }) => {
       today: task.today,
       isComplete: task.isComplete,
     };
-  });
+  }); */
 
   /* const relocateIndex = (array, index, delta) => {
     console.log("move", array, index, delta);
@@ -143,7 +161,7 @@ export const GlobalContextProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
-        tasks: orderdTasks,
+        tasks: state.tasks,
         configs: state.configs,
         addTask,
         deleteTask,

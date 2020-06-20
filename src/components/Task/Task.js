@@ -3,8 +3,8 @@ import { GlobalContext } from "../../context/GlobalState";
 
 import "./Task.scss";
 
-const Task = ({ task, index }) => {
-  //console.log(index);
+const Task = ({ task, index, isUpArrowHidden, isDownArrowHidden }) => {
+  //console.log(isDownArrowHidden);
   const {
     deleteTask,
     findTask,
@@ -21,6 +21,14 @@ const Task = ({ task, index }) => {
     ? "task-btn"
     : "task-btn task-hidden";
 
+  const isUpArrowHiddenBtn = isUpArrowHidden
+    ? "task-btn task-hidden"
+    : "task-btn";
+
+  const isDownArrowHiddenBtn = isDownArrowHidden
+    ? "task-btn task-arrow"
+    : "task-btn";
+
   return (
     <li className="task-container">
       <div className="task-info-bar">
@@ -31,14 +39,17 @@ const Task = ({ task, index }) => {
         </div>
       </div>
       <div>
-        <button className={isTaskInfoArrows} onClick={() => moveTaskUp(index)}>
+        <button
+          className={(isTaskInfoArrows, isUpArrowHiddenBtn)}
+          onClick={() => moveTaskUp(index)}
+        >
           <i className="fas fa-chevron-up"></i>
         </button>
         <button
           className={isTaskInfoArrows}
           onClick={() => moveTaskDown(index)}
         >
-          <i className="fas fa-chevron-down"></i>
+          <i className={`fas fa-chevron-down ${isDownArrowHiddenBtn}`}></i>
         </button>
         <button className="task-btn" onClick={() => findTask(task.id)}>
           <i className="fas fa-pen"></i>

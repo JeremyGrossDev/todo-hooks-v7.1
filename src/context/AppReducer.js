@@ -86,11 +86,11 @@ export default (state, action) => {
         if (newIndex < 0 || newIndex === array.length) return; //Already at the top or bottom.
         var indexes = [index, newIndex].sort((a, b) => a - b); //Sort the indixes (fixed)
         array.splice(indexes[0], 2, array[indexes[1]], array[indexes[0]]); //Replace from lowest index, two elements, reverting the order
-
+        console.log(array);
         return array;
       };
 
-      console.log(relocateIndex(state.tasks, action.payload, 1));
+      //console.log(relocateIndex(state.tasks, action.payload, 1));
       return {
         ...state,
         tasks: relocateIndex(state.tasks, action.payload, 1),
