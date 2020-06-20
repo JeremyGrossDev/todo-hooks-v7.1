@@ -55,6 +55,35 @@ export const GlobalContextProvider = ({ children }) => {
     localStorage.setItem("configs", JSON.stringify(state.configs));
   });
 
+  console.log(state.tasks);
+  const sortedTasks = state.tasks.sort(
+    (a, b) => a.priority - b.priority || a.title.localeCompare(b.title)
+  );
+
+  const orderdTasks = sortedTasks.map((task, i) => {
+    return {
+      order: i,
+      id: task.id,
+      title: task.title,
+      priority: task.priority,
+      today: task.today,
+      isComplete: task.isComplete,
+    };
+  });
+
+  /* const relocateIndex = (array, index, delta) => {
+    console.log("move", array, index, delta);
+
+    var newIndex = index + delta;
+    if (newIndex < 0 || newIndex === array.length) return; //Already at the top or bottom.
+    var indexes = [index, newIndex].sort((a, b) => a - b); //Sort the indixes (fixed)
+    array.splice(indexes[0], 2, array[indexes[1]], array[indexes[0]]); //Replace from lowest index, two elements, reverting the order
+
+    return array;
+  }; */
+
+  //console.log(relocateIndex(orderdTasks, 3, -1));
+
   const addTask = (task) => {
     dispatch({
       type: "ADD_TASK",
@@ -97,10 +126,24 @@ export const GlobalContextProvider = ({ children }) => {
     });
   };
 
+  const moveTaskUp = (value) => {
+    dispatch({
+      type: "MOVE_TASK_UP",
+      payload: value,
+    });
+  };
+
+  const moveTaskDown = (index) => {
+    dispatch({
+      type: "MOVE_TASK_DOWN",
+      payload: index,
+    });
+  };
+
   return (
     <GlobalContext.Provider
       value={{
-        tasks: state.tasks,
+        tasks: orderdTasks,
         configs: state.configs,
         addTask,
         deleteTask,
@@ -108,6 +151,8 @@ export const GlobalContextProvider = ({ children }) => {
         editTask,
         toggleToday,
         toggleTask,
+        moveTaskUp,
+        moveTaskDown,
       }}
     >
       {children}

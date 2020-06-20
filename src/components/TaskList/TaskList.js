@@ -8,13 +8,13 @@ const TaskList = () => {
   const { tasks, configs, toggleToday, toggleTask } = useContext(GlobalContext);
   //console.log(configs[0].showTaskInfo);
 
-  const sortedTasks = tasks.sort(
+  /* const sortedTasks = tasks.sort(
     (a, b) => a.priority - b.priority || a.title.localeCompare(b.title)
-  );
+  ); */
 
-  console.log(sortedTasks);
+  //console.log(sortedTasks);
 
-  const todayTasks = sortedTasks.filter((task) => {
+  const todayTasks = tasks.filter((task) => {
     return task.today;
   });
 
@@ -25,32 +25,6 @@ const TaskList = () => {
     setting === "showTodays"
       ? toggleToday(!todayValue)
       : toggleTask(!taskValue);
-
-    function compare(a, b) {
-      // Use toUpperCase() to ignore character casing
-      console.log(a);
-      console.log(b);
-      const bandA = a.priority;
-      const bandB = b.priority;
-
-      let comparison = 0;
-      if (bandA > bandB) {
-        comparison = 1;
-      } else if (bandA < bandB) {
-        comparison = -1;
-      }
-      return comparison;
-    }
-
-    /* const sortedData = tasks.sort(compare);
-
-    const sortedTasks = tasks.sort(
-      (a, b) =>
-        b.priority.localeCompare - a.priority.localeCompare ||
-        a.title.localeCompare(b.title)
-    );
-
-    //console.log(rats); */
   };
 
   return (
@@ -78,14 +52,14 @@ const TaskList = () => {
       {tasks.length !== 0 ? (
         configs[0].showTodays ? (
           <ul className="task-list-ul">
-            {todayTasks.map((task) => {
-              return <Task key={task.id} task={task} />;
+            {todayTasks.map((task, index) => {
+              return <Task key={task.id} index={index} task={task} />;
             })}
           </ul>
         ) : (
           <ul className="task-list-ul">
-            {sortedTasks.map((task) => {
-              return <Task key={task.id} task={task} />;
+            {tasks.map((task, index) => {
+              return <Task key={task.id} index={index} task={task} />;
             })}
           </ul>
         )

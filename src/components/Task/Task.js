@@ -3,8 +3,15 @@ import { GlobalContext } from "../../context/GlobalState";
 
 import "./Task.scss";
 
-const Task = ({ task }) => {
-  const { deleteTask, findTask, configs } = useContext(GlobalContext);
+const Task = ({ task, index }) => {
+  //console.log(index);
+  const {
+    deleteTask,
+    findTask,
+    configs,
+    moveTaskUp,
+    moveTaskDown,
+  } = useContext(GlobalContext);
 
   const isTaskInfo = configs[0].showTaskInfo
     ? "task-info-bar-second-row"
@@ -24,10 +31,13 @@ const Task = ({ task }) => {
         </div>
       </div>
       <div>
-        <button className={isTaskInfoArrows}>
+        <button className={isTaskInfoArrows} onClick={() => moveTaskUp(index)}>
           <i className="fas fa-chevron-up"></i>
         </button>
-        <button className={isTaskInfoArrows}>
+        <button
+          className={isTaskInfoArrows}
+          onClick={() => moveTaskDown(index)}
+        >
           <i className="fas fa-chevron-down"></i>
         </button>
         <button className="task-btn" onClick={() => findTask(task.id)}>
