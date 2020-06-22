@@ -4,7 +4,7 @@ import { GlobalContext } from "../../context/GlobalState";
 import "./Task.scss";
 
 const Task = ({ task, index, isUpArrowHidden, isDownArrowHidden }) => {
-  //console.log(isDownArrowHidden);
+  //console.log(isUpArrowHidden);
   const {
     deleteTask,
     findTask,
@@ -13,34 +13,36 @@ const Task = ({ task, index, isUpArrowHidden, isDownArrowHidden }) => {
     moveTaskDown,
   } = useContext(GlobalContext);
 
-  const isTaskInfo = configs[0].showTaskInfo
-    ? "task-info-bar-second-row"
-    : "task-info-bar-second-row task-hidden";
+  const { showTaskInfo } = configs[0];
+
+  const isTaskInfo = configs[0].showTaskInfo ? "" : " task-hidden";
 
   const isTaskInfoArrows = configs[0].showTaskInfo
     ? "task-btn"
     : "task-btn task-hidden";
 
-  const isUpArrowHiddenBtn = isUpArrowHidden
-    ? "task-btn task-hidden"
-    : "task-btn";
-
   const isDownArrowHiddenBtn = isDownArrowHidden
     ? "task-btn task-arrow"
     : "task-btn";
+
+  const isTaskInfoArrowsUp = showTaskInfo
+    ? isUpArrowHidden
+      ? "task-btn task-hidden"
+      : "task-btn"
+    : "task-btn task-hidden";
 
   return (
     <li className="task-container">
       <div className="task-info-bar">
         <div>{task.title}</div>
-        <div className={isTaskInfo}>
+        <div className={`task-info-bar-second-row ${isTaskInfo}`}>
           <div>Priority: {task.priority}</div>
           <div>Today: {task.today === true ? "Yes" : "No"}</div>
         </div>
       </div>
       <div>
         <button
-          className={(isTaskInfoArrows, isUpArrowHiddenBtn)}
+          className={isTaskInfoArrowsUp}
           onClick={() => moveTaskUp(index)}
         >
           <i className="fas fa-chevron-up"></i>

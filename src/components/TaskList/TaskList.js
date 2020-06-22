@@ -39,6 +39,13 @@ const TaskList = () => {
             />
           }
         </div>
+        {/* <div>
+          <label htmlFor="sort">Sort by:</label>
+          <select id="sort" name="sort">
+            <option value="3">Task</option>
+            <option value="2">Manual</option>
+          </select>
+        </div> */}
         <div>
           {
             <CheckBox
@@ -53,7 +60,18 @@ const TaskList = () => {
         configs[0].showTodays ? (
           <ul className="task-list-ul">
             {todayTasks.map((task, index) => {
-              return <Task key={task.id} index={index} task={task} />;
+              const isUpArrowHidden = index === 0 ? true : false;
+              const isDownArrowHidden =
+                index === todayTasks.length - 1 ? true : false;
+              return (
+                <Task
+                  key={task.id}
+                  index={index}
+                  task={task}
+                  isUpArrowHidden={isUpArrowHidden}
+                  isDownArrowHidden={isDownArrowHidden}
+                />
+              );
             })}
           </ul>
         ) : (

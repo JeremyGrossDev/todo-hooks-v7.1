@@ -21,7 +21,7 @@
   opacity: 0.5;
 }
 .task-hidden {
-  display: none;
+  display: none !important;
 }
 .task-btn i.task-arrow {
   color: transparent;
@@ -37,6 +37,11 @@
   color: rgb(177, 177, 177);
   margin-left: 1rem;
   margin-right: 1rem;
+}
+.rat {
+  background-color: red;
+  width: 5rem;
+  height: 5rem;
 }
 
 @media (max-width: 700px) {
