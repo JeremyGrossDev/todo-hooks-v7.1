@@ -6,15 +6,7 @@
   overflow: hidden;
   overflow-y: auto;
 }
-.task-list-header {
-  border-top: rgb(83, 83, 83) solid 0.1rem;
-  color: rgb(153, 153, 153);
-  font-size: 2rem;
-  padding-top: 1rem;
-  display: flex;
-  justify-content: space-between;
-  margin: 0 1rem 2rem 1rem;
-}
+
 ::-webkit-scrollbar {
   width: 12px;
 }
