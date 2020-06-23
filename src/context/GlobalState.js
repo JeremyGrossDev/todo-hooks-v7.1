@@ -25,6 +25,7 @@ const initialState = {
     {
       showTaskInfo: false,
       showTodays: false,
+      sortTaskManual: false,
       editTaskInfo: null,
     },
   ],
@@ -144,6 +145,13 @@ export const GlobalContextProvider = ({ children }) => {
     });
   };
 
+  const toggleSort = (value) => {
+    dispatch({
+      type: "TOGGLE_SORT",
+      payload: value,
+    });
+  };
+
   const moveTaskUp = (value) => {
     dispatch({
       type: "MOVE_TASK_UP",
@@ -169,6 +177,7 @@ export const GlobalContextProvider = ({ children }) => {
         editTask,
         toggleToday,
         toggleTask,
+        toggleSort,
         moveTaskUp,
         moveTaskDown,
       }}

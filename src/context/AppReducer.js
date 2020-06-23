@@ -13,13 +13,14 @@ export default (state, action) => {
       };
 
     case "FIND_TASK":
-      const { showTaskInfo, showTodays } = state.configs[0];
+      const { showTaskInfo, showTodays, sortTaskManual } = state.configs[0];
       return {
         ...state,
         configs: {
           0: {
             showTaskInfo: showTaskInfo,
             showTodays: showTodays,
+            sortTaskManual: sortTaskManual,
             editTaskInfo: state.tasks.find(
               (task) => task.id === action.payload
             ),
@@ -41,6 +42,7 @@ export default (state, action) => {
           0: {
             showTaskInfo: state.configs[0].showTaskInfo,
             showTodays: state.configs[0].showTodays,
+            sortTaskManual: state.configs[0].sortTaskManual,
             editTaskInfo: null,
           },
         },
@@ -53,6 +55,7 @@ export default (state, action) => {
           0: {
             showTaskInfo: state.configs[0].showTaskInfo,
             showTodays: action.payload,
+            sortTaskManual: state.configs[0].sortTaskManual,
             editTaskInfo: state.configs[0].editTaskInfo,
           },
         },
@@ -65,6 +68,20 @@ export default (state, action) => {
           0: {
             showTaskInfo: action.payload,
             showTodays: state.configs[0].showTodays,
+            sortTaskManual: state.configs[0].sortTaskManual,
+            editTaskInfo: state.configs[0].editTaskInfo,
+          },
+        },
+      };
+
+    case "TOGGLE_SORT":
+      return {
+        ...state,
+        configs: {
+          0: {
+            showTaskInfo: state.configs[0].showTaskInfo,
+            showTodays: state.configs[0].showTodays,
+            sortTaskManual: action.payload,
             editTaskInfo: state.configs[0].editTaskInfo,
           },
         },
