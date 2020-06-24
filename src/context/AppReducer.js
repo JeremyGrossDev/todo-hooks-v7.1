@@ -90,27 +90,29 @@ export default (state, action) => {
     case "MOVE_TASK_UP":
       console.log("Task moved up");
       return {
-        state,
+        ...state,
       };
 
     case "MOVE_TASK_DOWN":
       console.log("Task moved Down");
-      console.log(action.payload);
-      const relocateIndex = (array, index, delta) => {
-        console.log("move", array, index, delta);
+      //console.log(action.payload);
+      console.log(state);
 
+      let relocateIndex = (array, index, delta) => {
+        //console.log("move", array, index, delta);
         var newIndex = index + delta;
         if (newIndex < 0 || newIndex === array.length) return; //Already at the top or bottom.
         var indexes = [index, newIndex].sort((a, b) => a - b); //Sort the indixes (fixed)
         array.splice(indexes[0], 2, array[indexes[1]], array[indexes[0]]); //Replace from lowest index, two elements, reverting the order
-        console.log(array);
+        //console.log(array);
         return array;
       };
 
+      let cat = relocateIndex(state.tasks, action.payload, 1);
       //console.log(relocateIndex(state.tasks, action.payload, 1));
       return {
         ...state,
-        tasks: relocateIndex(state.tasks, action.payload, 1),
+        tasks: cat,
       };
 
     default:

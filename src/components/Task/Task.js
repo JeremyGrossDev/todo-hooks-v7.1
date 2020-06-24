@@ -13,11 +13,11 @@ const Task = ({ task, index, isUpArrowHidden, isDownArrowHidden }) => {
     moveTaskDown,
   } = useContext(GlobalContext);
 
-  const { showTaskInfo } = configs[0];
+  const { sortTaskManual } = configs[0];
 
   const isTaskInfo = configs[0].showTaskInfo ? "" : " task-hidden";
 
-  const isTaskInfoArrows = configs[0].showTaskInfo
+  const isTaskInfoArrows = configs[0].sortTaskManual
     ? "task-btn"
     : "task-btn task-hidden";
 
@@ -25,7 +25,7 @@ const Task = ({ task, index, isUpArrowHidden, isDownArrowHidden }) => {
     ? "task-btn task-arrow"
     : "task-btn";
 
-  const isTaskInfoArrowsUp = showTaskInfo
+  const isTaskInfoArrowsUp = sortTaskManual
     ? isUpArrowHidden
       ? "task-btn task-hidden"
       : "task-btn"

@@ -2,8 +2,17 @@ import React, { createContext, useReducer, useEffect } from "react";
 import AppReducer from "./AppReducer";
 
 const tasksForState = JSON.parse(localStorage.getItem("tasks")) || [];
+const configsForState = JSON.parse(localStorage.getItem("configs")) || [
+  {
+    showTaskInfo: false,
+    showTodays: false,
+    sortTaskManual: false,
+    editTaskInfo: null,
+  },
+];
 
-//console.log(tasksForState);
+const isSortTaskManual = configsForState[0].configsForState;
+
 const sortedTasks = tasksForState.sort(
   (a, b) => a.priority - b.priority || a.title.localeCompare(b.title)
 );
@@ -19,16 +28,29 @@ const orderdTasks = sortedTasks.map((task, i) => {
   };
 });
 
+const tasks = isSortTaskManual ? tasksForState : orderdTasks;
+
+//console.log(tasksForState);
+//console.log(tasks);
+
+/* const sortedTasks = tasksForState.sort(
+  (a, b) => a.priority - b.priority || a.title.localeCompare(b.title)
+);
+
+const orderdTasks = sortedTasks.map((task, i) => {
+  return {
+    order: i,
+    id: task.id,
+    title: task.title,
+    priority: task.priority,
+    today: task.today,
+    isComplete: task.isComplete,
+  };
+}); */
+
 const initialState = {
-  tasks: orderdTasks,
-  configs: JSON.parse(localStorage.getItem("configs")) || [
-    {
-      showTaskInfo: false,
-      showTodays: false,
-      sortTaskManual: false,
-      editTaskInfo: null,
-    },
-  ],
+  tasks: tasks,
+  configs: configsForState,
 };
 /* const initialState = {
   tasks: [
