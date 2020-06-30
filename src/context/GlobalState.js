@@ -1,5 +1,7 @@
 import React, { createContext, useReducer, useEffect } from "react";
+import logger from "use-reducer-logger";
 import AppReducer from "./AppReducer";
+//import Tasks from "./TasksData";
 
 const tasksForState = JSON.parse(localStorage.getItem("tasks")) || [];
 const configsForState = JSON.parse(localStorage.getItem("configs")) || [
@@ -11,13 +13,15 @@ const configsForState = JSON.parse(localStorage.getItem("configs")) || [
   },
 ];
 
-const isSortTaskManual = configsForState[0].configsForState;
+//const isSortTaskManual = configsForState[0].configsForState;
 
-const sortedTasks = tasksForState.sort(
+//const sortedTasksByOrder = tasksForState.sort((a, b) => a.order - b.order);
+
+/* const sortedTasks = tasksForState.sort(
   (a, b) => a.priority - b.priority || a.title.localeCompare(b.title)
-);
+); */
 
-const orderdTasks = sortedTasks.map((task, i) => {
+/* const orderdTasks = sortedTasks.map((task, i) => {
   return {
     order: i,
     id: task.id,
@@ -26,11 +30,11 @@ const orderdTasks = sortedTasks.map((task, i) => {
     today: task.today,
     isComplete: task.isComplete,
   };
-});
+}); */
 
-const tasks = isSortTaskManual ? tasksForState : orderdTasks;
+//const tasks = isSortTaskManual ? orderdTasks : tasksForState;
 
-//console.log(tasksForState);
+//console.log(sortedTasksByOrder);
 //console.log(tasks);
 
 /* const sortedTasks = tasksForState.sort(
@@ -49,7 +53,7 @@ const orderdTasks = sortedTasks.map((task, i) => {
 }); */
 
 const initialState = {
-  tasks: tasks,
+  tasks: tasksForState,
   configs: configsForState,
 };
 /* const initialState = {
@@ -88,7 +92,7 @@ const initialState = {
 export const GlobalContext = createContext(initialState);
 
 export const GlobalContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(AppReducer, initialState);
+  const [state, dispatch] = useReducer(logger(AppReducer), initialState);
   //console.log(state);
 
   useEffect(() => {

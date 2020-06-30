@@ -5,7 +5,7 @@ import "./TaskList.scss";
 
 const TaskList = () => {
   const { tasks, configs } = useContext(GlobalContext);
-
+  //console.log(tasks);
   const todayTasks = tasks.filter((task) => {
     return task.today;
   });
