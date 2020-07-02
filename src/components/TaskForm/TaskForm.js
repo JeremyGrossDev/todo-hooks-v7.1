@@ -9,7 +9,6 @@ const TaskForm = () => {
   const { addTask, configs, editTask } = useContext(GlobalContext);
 
   const [task, setTask] = useState({
-    order: 99,
     id: uuidv4(),
     title: "",
     priority: "3",

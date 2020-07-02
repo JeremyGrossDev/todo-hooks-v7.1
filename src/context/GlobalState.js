@@ -12,13 +12,18 @@ const configsForState = JSON.parse(localStorage.getItem("configs")) || [
     editTaskInfo: null,
   },
 ];
-
+//console.log(tasksForState);
 const isSortTaskManual = configsForState[0].sortTaskManual;
-const sortedTasks = tasksForState.sort(
-  (a, b) => a.priority - b.priority || a.title.localeCompare(b.title)
-);
-const isSorted = isSortTaskManual ? sortedTasks : tasksForState;
-console.log(isSorted);
+
+if (!isSortTaskManual) {
+  tasksForState.sort(
+    (a, b) => a.priority - b.priority || a.title.localeCompare(b.title)
+  );
+}
+
+//const isSorted = isSortTaskManual ? tasksForState : tasksForState;
+//console.log(isSortTaskManual);
+//console.log(sortedTasks);
 
 /* const orderdTasks = sortedTasks.map((task, i) => {
   return {
@@ -32,7 +37,7 @@ console.log(isSorted);
 }); */
 
 const initialState = {
-  tasks: isSorted,
+  tasks: tasksForState,
   configs: configsForState,
 };
 

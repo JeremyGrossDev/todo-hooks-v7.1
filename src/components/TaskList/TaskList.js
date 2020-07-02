@@ -36,7 +36,6 @@ const TaskList = () => {
               const isUpArrowHidden = index === 0 ? true : false;
               const isDownArrowHidden =
                 index === tasks.length - 1 ? true : false;
-
               return (
                 <Task
                   key={task.id}

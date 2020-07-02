@@ -75,6 +75,12 @@ export default (state, action) => {
       };
 
     case "TOGGLE_SORT":
+      const isSortTaskManual = state.configs[0].sortTaskManual;
+      if (isSortTaskManual) {
+        state.tasks.sort(
+          (a, b) => a.priority - b.priority || a.title.localeCompare(b.title)
+        );
+      }
       return {
         ...state,
         configs: {
@@ -104,7 +110,9 @@ export default (state, action) => {
 
     case "MOVE_TASK_DOWN":
       console.log("Task moved Down");
+
       let relocateIndexDown = (array, index, delta) => {
+        console.log(array, index, delta);
         const newIndex = index + delta;
         if (newIndex < 0 || newIndex === array.length) return;
         const indexes = [index, newIndex].sort((a, b) => a - b);
