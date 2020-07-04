@@ -95,36 +95,17 @@ export default (state, action) => {
 
     case "MOVE_TASK_UP":
       console.log("Task moved up");
-      let relocateIndexUp = (array, index, delta) => {
-        const newIndex = index + delta;
-        if (newIndex < 0 || newIndex === array.length) return;
-        const indexes = [index, newIndex].sort((a, b) => a - b);
-        array.splice(indexes[0], 2, array[indexes[1]], array[indexes[0]]);
-        return array;
-      };
-
-      return {
-        ...state,
-        tasks: relocateIndexUp(state.tasks, action.payload, -1),
-      };
-
-    case "MOVE_TASK_DOWN":
-      console.log("Task moved Down");
       const isToday = state.configs[0].showTodays;
       let currentTask = action.payload;
-      let indexNumber = 1;
-      //console.log(isToday);
+      let indexNumber = -1;
       if (isToday) {
-        //console.log(action.payload);
+        console.log(action.payload);
         const todayTasks = state.tasks.filter((task) => {
           return task.today;
         });
 
         const currentTodayTaskIndex = todayTasks[action.payload].id;
-        const nextTodayTaskIndex = todayTasks[action.payload + 1].id;
-
-        console.log(currentTodayTaskIndex);
-        console.log(nextTodayTaskIndex);
+        const nextTodayTaskIndex = todayTasks[action.payload - 1].id;
 
         currentTask = state.tasks.findIndex(
           (r) => r.id === currentTodayTaskIndex
@@ -133,25 +114,69 @@ export default (state, action) => {
           (i) => i.id === nextTodayTaskIndex
         );
 
-        console.log(currentTask);
-        console.log(nextTask);
-
         indexNumber = nextTask - currentTask;
-        console.log(indexNumber);
       }
 
-      let relocateIndexDown = (array, index, delta) => {
-        console.log(array, index, delta);
+      let relocateIndexUp = (array, index, delta) => {
         const newIndex = index + delta;
         if (newIndex < 0 || newIndex === array.length) return;
         const indexes = [index, newIndex].sort((a, b) => a - b);
-        array.splice(indexes[0], 2, array[indexes[1]], array[indexes[0]]);
+        if (!isToday) {
+          array.splice(indexes[0], 2, array[indexes[1]], array[indexes[0]]);
+        } else {
+          const taskReorder = array[indexes[0]];
+          array.splice(indexes[0], 1);
+          array.splice(indexes[1], 0, taskReorder);
+        }
         return array;
       };
 
       return {
         ...state,
-        tasks: relocateIndexDown(state.tasks, currentTask, indexNumber),
+        tasks: relocateIndexUp(state.tasks, currentTask, indexNumber),
+      };
+
+    case "MOVE_TASK_DOWN":
+      console.log("Task moved Down");
+      const isToday1 = state.configs[0].showTodays;
+      let currentTask1 = action.payload;
+      let indexNumber1 = 1;
+      if (isToday1) {
+        console.log(action.payload);
+        const todayTasks = state.tasks.filter((task) => {
+          return task.today;
+        });
+
+        const currentTodayTaskIndex = todayTasks[action.payload].id;
+        const nextTodayTaskIndex = todayTasks[action.payload + 1].id;
+
+        currentTask1 = state.tasks.findIndex(
+          (r) => r.id === currentTodayTaskIndex
+        );
+        const nextTask = state.tasks.findIndex(
+          (i) => i.id === nextTodayTaskIndex
+        );
+
+        indexNumber1 = nextTask - currentTask1;
+      }
+
+      let relocateIndexDown = (array, index, delta) => {
+        const newIndex = index + delta;
+        if (newIndex < 0 || newIndex === array.length) return;
+        const indexes = [index, newIndex].sort((a, b) => a - b);
+        if (!isToday1) {
+          array.splice(indexes[0], 2, array[indexes[1]], array[indexes[0]]);
+        } else {
+          const taskReorder = array[indexes[0]];
+          array.splice(indexes[0], 1);
+          array.splice(indexes[1], 0, taskReorder);
+        }
+        return array;
+      };
+
+      return {
+        ...state,
+        tasks: relocateIndexDown(state.tasks, currentTask1, indexNumber1),
       };
 
     default:
