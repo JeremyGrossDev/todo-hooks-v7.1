@@ -44,7 +44,8 @@ const initialState = {
 export const GlobalContext = createContext(initialState);
 
 export const GlobalContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(logger(AppReducer), initialState);
+  //const [state, dispatch] = useReducer(logger(AppReducer), initialState);
+  const [state, dispatch] = useReducer(AppReducer, initialState);
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(state.tasks));

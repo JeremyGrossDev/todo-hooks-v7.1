@@ -110,6 +110,35 @@ export default (state, action) => {
 
     case "MOVE_TASK_DOWN":
       console.log("Task moved Down");
+      const isToday = state.configs[0].showTodays;
+      let currentTask = action.payload;
+      let indexNumber = 1;
+      //console.log(isToday);
+      if (isToday) {
+        //console.log(action.payload);
+        const todayTasks = state.tasks.filter((task) => {
+          return task.today;
+        });
+
+        const currentTodayTaskIndex = todayTasks[action.payload].id;
+        const nextTodayTaskIndex = todayTasks[action.payload + 1].id;
+
+        console.log(currentTodayTaskIndex);
+        console.log(nextTodayTaskIndex);
+
+        currentTask = state.tasks.findIndex(
+          (r) => r.id === currentTodayTaskIndex
+        );
+        const nextTask = state.tasks.findIndex(
+          (i) => i.id === nextTodayTaskIndex
+        );
+
+        console.log(currentTask);
+        console.log(nextTask);
+
+        indexNumber = nextTask - currentTask;
+        console.log(indexNumber);
+      }
 
       let relocateIndexDown = (array, index, delta) => {
         console.log(array, index, delta);
@@ -122,7 +151,7 @@ export default (state, action) => {
 
       return {
         ...state,
-        tasks: relocateIndexDown(state.tasks, action.payload, 1),
+        tasks: relocateIndexDown(state.tasks, currentTask, indexNumber),
       };
 
     default:
