@@ -8,6 +8,7 @@ const Task = ({ task, index, isUpArrowHidden, isDownArrowHidden }) => {
   const {
     deleteTask,
     findTask,
+    closeTask,
     configs,
     moveTaskUp,
     moveTaskDown,
@@ -31,10 +32,14 @@ const Task = ({ task, index, isUpArrowHidden, isDownArrowHidden }) => {
       : "task-btn"
     : "task-btn task-hidden";
 
+  const isTaskClosed = task.isComplete ? "task-closed" : "";
+
   return (
     <li className="task-container">
       <div className="task-info-bar">
-        <div>{task.title}</div>
+        <div className={isTaskClosed} onClick={() => closeTask(task.id)}>
+          {task.title}
+        </div>
         <div className={`task-info-bar-second-row ${isTaskInfo}`}>
           <div>Priority: {task.priority}</div>
           <div>Today: {task.today === true ? "Yes" : "No"}</div>

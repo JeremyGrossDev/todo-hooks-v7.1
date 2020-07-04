@@ -11,6 +11,11 @@
   letter-spacing: 0.1rem;
   flex-direction: column;
   height: 3.5rem;
+  cursor: pointer;
+}
+.task-closed {
+  text-decoration: line-through;
+  color: rgb(97, 97, 97);
 }
 .task-info-bar-second-row {
   display: flex;

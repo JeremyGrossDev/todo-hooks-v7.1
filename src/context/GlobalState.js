@@ -73,6 +73,13 @@ export const GlobalContextProvider = ({ children }) => {
     });
   };
 
+  const closeTask = (id) => {
+    dispatch({
+      type: "CLOSE_TASK",
+      payload: id,
+    });
+  };
+
   const editTask = (task) => {
     dispatch({
       type: "EDIT_TASK",
@@ -123,6 +130,7 @@ export const GlobalContextProvider = ({ children }) => {
         addTask,
         deleteTask,
         findTask,
+        closeTask,
         editTask,
         toggleToday,
         toggleTask,

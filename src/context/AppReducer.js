@@ -28,6 +28,23 @@ export default (state, action) => {
         },
       };
 
+    case "CLOSE_TASK":
+      console.log("close");
+      const newTaskArray = [...state.tasks];
+      const elementsIndex = state.tasks.findIndex(
+        (element) => element.id === action.payload
+      );
+
+      newTaskArray[elementsIndex] = {
+        ...newTaskArray[elementsIndex],
+        isComplete: !newTaskArray[elementsIndex].isComplete,
+      };
+
+      return {
+        ...state,
+        tasks: newTaskArray,
+      };
+
     case "EDIT_TASK":
       const { tasks } = state;
       const tid = action.payload.id;
