@@ -1,9 +1,11 @@
-import React, { createContext, useReducer, useEffect } from "react";
-import logger from "use-reducer-logger";
+import React, { createContext, useReducer, useEffect, useState } from "react";
+import axios from "axios";
+//import logger from "use-reducer-logger";
 import AppReducer from "./AppReducer";
 //import Tasks from "./TasksData";
 
-const tasksForState = JSON.parse(localStorage.getItem("tasks")) || [];
+const tasksForState = [];
+//const tasksForState = JSON.parse(localStorage.getItem("tasks")) || [];
 const configsForState = JSON.parse(localStorage.getItem("configs")) || [
   {
     showTaskInfo: false,
@@ -12,14 +14,6 @@ const configsForState = JSON.parse(localStorage.getItem("configs")) || [
     editTaskInfo: null,
   },
 ];
-//console.log(tasksForState);
-const isSortTaskManual = configsForState[0].sortTaskManual;
-
-if (!isSortTaskManual) {
-  tasksForState.sort(
-    (a, b) => a.priority - b.priority || a.title.localeCompare(b.title)
-  );
-}
 
 //const isSorted = isSortTaskManual ? tasksForState : tasksForState;
 //console.log(isSortTaskManual);
@@ -48,9 +42,60 @@ export const GlobalContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(state.tasks));
+    console.log("useEffect: Get data");
+    axios({
+      url: "http://10.1.2.40:3010/getTasksJSON",
+      method: "get",
+    })
+      .then((res) => {
+        const isSortTaskManual = configsForState[0].sortTaskManual;
+        const result = res.data;
+        if (!isSortTaskManual) {
+          result.sort(
+            (a, b) => a.priority - b.priority || a.title.localeCompare(b.title)
+          );
+        }
+        setTasks(result);
+      })
+      .catch((err) => {
+        console.log("Error: ", err);
+      });
+  }, []);
+
+  useEffect(() => {
+    console.log("useEffect: Set Configs");
+    //localStorage.setItem("tasks", JSON.stringify(state.tasks));
     localStorage.setItem("configs", JSON.stringify(state.configs));
   });
+
+  useEffect(() => {
+    console.log("useEffect: Set data");
+    axios({
+      url: "http://10.1.2.40:3010/setTasksJSON",
+      method: "post",
+      data: { tasks: state.tasks },
+    })
+      .then((res) => {
+        const isSortTaskManual = configsForState[0].sortTaskManual;
+        const result = res.data;
+        if (!isSortTaskManual) {
+          result.sort(
+            (a, b) => a.priority - b.priority || a.title.localeCompare(b.title)
+          );
+        }
+        //setTasks(result);
+      })
+      .catch((err) => {
+        console.log("Error: ", err);
+      });
+  }, [state]);
+
+  const setTasks = (task) => {
+    dispatch({
+      type: "SET_TASKS",
+      payload: task,
+    });
+  };
 
   const addTask = (task) => {
     dispatch({
@@ -127,6 +172,7 @@ export const GlobalContextProvider = ({ children }) => {
       value={{
         tasks: state.tasks,
         configs: state.configs,
+        setTasks,
         addTask,
         deleteTask,
         findTask,
