@@ -40,9 +40,11 @@ export const GlobalContext = createContext(initialState);
 export const GlobalContextProvider = ({ children }) => {
   //const [state, dispatch] = useReducer(logger(AppReducer), initialState);
   const [state, dispatch] = useReducer(AppReducer, initialState);
+  const [load, setLoad] = useState(false);
 
   useEffect(() => {
     console.log("useEffect: Get data");
+
     axios({
       url: "http://10.1.2.40:3010/getTasksJSON",
       method: "get",
@@ -55,6 +57,7 @@ export const GlobalContextProvider = ({ children }) => {
             (a, b) => a.priority - b.priority || a.title.localeCompare(b.title)
           );
         }
+        setLoad(true);
         setTasks(result);
       })
       .catch((err) => {
@@ -70,25 +73,32 @@ export const GlobalContextProvider = ({ children }) => {
 
   useEffect(() => {
     console.log("useEffect: Set data");
-    axios({
-      url: "http://10.1.2.40:3010/setTasksJSON",
-      method: "post",
-      data: { tasks: state.tasks },
-    })
-      .then((res) => {
-        const isSortTaskManual = configsForState[0].sortTaskManual;
-        const result = res.data;
-        if (!isSortTaskManual) {
-          result.sort(
-            (a, b) => a.priority - b.priority || a.title.localeCompare(b.title)
-          );
-        }
-        //setTasks(result);
+    console.log(state.tasks);
+    if (load) {
+      console.log("loaded");
+      axios({
+        url: "http://10.1.2.40:3010/setTasksJSON",
+        method: "post",
+        data: { tasks: state.tasks },
       })
-      .catch((err) => {
-        console.log("Error: ", err);
-      });
-  }, [state]);
+        .then((res) => {
+          const isSortTaskManual = configsForState[0].sortTaskManual;
+          const result = res.data;
+          if (!isSortTaskManual) {
+            result.sort(
+              (a, b) =>
+                a.priority - b.priority || a.title.localeCompare(b.title)
+            );
+          }
+          //setTasks(result);
+        })
+        .catch((err) => {
+          console.log("Error: ", err);
+        });
+    }
+
+    /*  */
+  });
 
   const setTasks = (task) => {
     dispatch({
